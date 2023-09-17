@@ -4,17 +4,18 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const dotenv = require("dotenv");
+const PORT = process.env.PORT || 8000;
 
 dotenv.config();
 
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    next();
-})
+// app.use((req, res, next) => {
+//     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+//     res.header(
+//         "Access-Control-Allow-Headers",
+//         "Origin, X-Requested-With, Content-Type, Accept"
+//     );
+//     next();
+// })
 
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
@@ -61,8 +62,6 @@ mongoose.connect(process.env.DATABASE_URI, { useNewurlParser: true })
     })
 
 
-
-
-
-app.listen(process.env.PORT, console.log("server is started"));
-
+app.listen(PORT, () => {
+    console.log(`server started on port ${PORT}`);
+});
